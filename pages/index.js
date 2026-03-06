@@ -2,7 +2,7 @@
 // PÁGINA INICIAL (HOME)
 // ============================================================
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Layout from "../components/Layout";
@@ -92,6 +92,15 @@ function VideoCard({ video }) {
 
 export default function Home() {
   const [busca, setBusca] = useState("");
+  const [fotoAtual, setFotoAtual] = useState(1);
+
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setFotoAtual((atual) => atual === 8 ? 1 : atual + 1);
+    }, 4000);
+    return () => clearInterval(intervalo);
+  }, []);
+
   const router = useRouter();
 
   function handleBusca(e) {
@@ -112,50 +121,65 @@ export default function Home() {
 
       {/* ── HERO com busca ── */}
       <div style={{
-        background: "url('/cenario.png') center/cover no-repeat",
+        background: `url('/cenario${fotoAtual}.jpg') center/cover no-repeat`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         padding: "20px 20px 56px",
         textAlign: "center",
+        minHeight: "280px",
       }}>
-        
-        {/* Link Voltar ao Feeds */}
+
+        {/* Botão Voltar ao Feeds — verde, igual ao breadcrumb */}
         <div style={{ textAlign: "left", marginBottom: "20px" }}>
-          <a 
-            href="https://solisapp.org" 
+          <a
+            href="https://solisapp.org"
             style={{
-              color: "var(--escuro)",
-              textDecoration: "underline",
-              fontFamily: "Arial, sans-serif",
+              background: "#42c16c",
+              color: "#fff",
+              textDecoration: "none",
+              padding: "4px 12px",
+              borderRadius: "6px",
+              fontFamily: "Sora, sans-serif",
+              fontWeight: 600,
               fontSize: "12px",
-              fontWeight: 500,
               display: "inline-flex",
               alignItems: "center",
               gap: "4px",
-              opacity: 0.7,
-              transition: "opacity 0.2s"
             }}
-            onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
-            onMouseLeave={(e) => e.currentTarget.style.opacity = 0.7}
           >
-            ‹ voltar ao Feeds
+            ‹ Voltar ao Feeds
           </a>
         </div>
 
-        <h1 style={{
-          fontFamily: "Sora, sans-serif",
-          fontSize: "clamp(22px, 5vw, 32px)",
-          fontWeight: 700,
-          color: "#6dc59c",
-          marginBottom: "8px",
+        {/* Título com fundo semitransparente para legibilidade */}
+        <div style={{
+          display: "inline-block",
+          background: "rgba(0,0,0,0.10)",
+          borderRadius: "12px",
+          padding: "16px 16px",
+          marginBottom: "20px",
+          backdropFilter: "blur(2px)",
+          border: "1px solid rgba(255,255,255,0.2)",
         }}>
-          Como podemos te ajudar?
-        </h1>
-        <p style={{
-          color: "#1e1e1e",
-          marginBottom: "28px",
-          fontSize: "15px",
-        }}>
-          Encontre abaixo as respostas para você aproveitar ao máximo o Feeds
-        </p>
+          <h1 style={{
+            fontFamily: "Sora, sans-serif",
+            fontSize: "clamp(20px, 5vw, 30px)",
+            fontWeight: 700,
+            color: "#fff",
+            marginBottom: "6px",
+            textShadow: "0 1px 4px rgba(0,0,0,0.5)",
+          }}>
+            Como podemos te ajudar?
+          </h1>
+          <p style={{
+            color: "#f0f0f0",
+            fontSize: "14px",
+            margin: 0,
+            textShadow: "0 1px 3px rgba(0,0,0,0.5)",
+          }}>
+            Encontre abaixo as respostas para você aproveitar ao máximo o Feeds
+          </p>
+        </div>
 
         <form onSubmit={handleBusca} style={{ maxWidth: "480px", margin: "0 auto" }}>
           <div style={{ display: "flex", gap: "8px" }}>
@@ -235,7 +259,6 @@ export default function Home() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                {/* 👇 className adicionado para inversão no dark mode */}
                 <img src={cat.emoji} alt={cat.titulo} className="icone-categoria" style={{ width: "32px", height: "32px", marginBottom: "8px" }} />
                 <div style={{
                   fontFamily: "Sora, sans-serif",
