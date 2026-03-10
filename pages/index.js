@@ -10,6 +10,9 @@ import faqData from "../data/faq.json";
 
 const { categorias, maisPopulares } = faqData;
 
+const TOTAL_FOTOS = 8;
+const fotos = Array.from({ length: TOTAL_FOTOS }, (_, i) => `/cenario${i + 1}.webp`);
+
 // Componente que gerencia o clique no vídeo para rodar na tela
 function VideoCard({ video }) {
   const [tocando, setTocando] = useState(false);
@@ -92,11 +95,11 @@ function VideoCard({ video }) {
 
 export default function Home() {
   const [busca, setBusca] = useState("");
-  const [fotoAtual, setFotoAtual] = useState(1);
+  const [fotoAtual, setFotoAtual] = useState(0);
 
   useEffect(() => {
     const intervalo = setInterval(() => {
-      setFotoAtual((atual) => atual === 8 ? 1 : atual + 1);
+      setFotoAtual((atual) => (atual + 1) % TOTAL_FOTOS);
     }, 4000);
     return () => clearInterval(intervalo);
   }, []);
@@ -119,106 +122,128 @@ export default function Home() {
   return (
     <Layout>
 
-      {/* ── HERO com busca ── */}
+      {/* ── HERO com slideshow ── */}
       <div style={{
-        background: `url('/cenario${fotoAtual}.webp') center/cover no-repeat`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding: "20px 20px 56px",
-        textAlign: "center",
-        minHeight: "280px",
+        position: "relative",
+        Height: "280px",
+        overflow: "hidden",
       }}>
 
-        {/* Botão Voltar ao Feeds — verde, igual ao breadcrumb */}
-        <div style={{ textAlign: "left", marginBottom: "20px" }}>
-          <a
-            href="https://solisapp.org"
-            style={{
-              background: "#42c16c",
-              color: "#fff",
-              textDecoration: "none",
-              padding: "4px 6px",
-              borderRadius: "6px",
-              fontFamily: "Sora, sans-serif",
-              fontWeight: 600,
-              fontSize: "12px",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "4px",
-            }}
-          >
-            ‹ Retornar ao Feeds
-          </a>
-        </div>
+        {/* Camadas de imagem empilhadas — só a ativa fica visível */}
+        {fotos.map((src, i) => (
+  <div
+    key={src}
+    style={{
+      position: "absolute",
+      inset: 0,
+      backgroundImage: `url('${src}')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      opacity: i === fotoAtual ? 1 : 0,
+      transition: "opacity 0.8s ease-in-out",
+    }}
+  />
+))}
 
-        {/* Título com fundo semitransparente para legibilidade */}
+        {/* Conteúdo do hero — fica por cima das imagens */}
         <div style={{
-          display: "inline-block",
-          background: "rgba(0,0,0,0.10)",
-          borderRadius: "12px",
-          padding: "10px 8px",
-          marginBottom: "20px",
-          backdropFilter: "blur(2px)",
-          border: "1px solid rgba(255,255,255,0.2)",
+          position: "relative",
+          zIndex: 10,
+          padding: "20px 20px 56px",
+          textAlign: "center",
         }}>
-          <h1 style={{
-            fontFamily: "Sora, sans-serif",
-            fontSize: "clamp(20px, 5vw, 30px)",
-            fontWeight: 800,
-            color: "#fff",
-            marginBottom: "6px",
-          }}>
-            Como podemos te ajudar?
-          </h1>
-          <p style={{
-            color: "#ffffff",
-            fontSize: "14px",
-            margin: 0,
-            textShadow: "0 1px 3px rgba(0,0,0,0.5)",
-          }}>
-            Encontre abaixo as respostas para você aproveitar ao máximo o Feeds
-          </p>
-        </div>
 
-        <form onSubmit={handleBusca} style={{ maxWidth: "480px", margin: "0 auto" }}>
-          <div style={{ display: "flex", gap: "8px" }}>
-            <input
-              type="text"
-              placeholder="Digite aqui o que você procura"
-              value={busca}
-              onChange={(e) => setBusca(e.target.value)}
-              style={{
-                flex: 1,
-                padding: "13px 18px",
-                borderRadius: "8px",
-                border: "none",
-                fontSize: "13px",
-                fontFamily: "Arial, sans-serif",
-                outline: "none",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-              }}
-            />
-            <button
-              type="submit"
+          {/* Botão Voltar ao Feeds */}
+          <div style={{ textAlign: "left", marginBottom: "20px" }}>
+            <a
+              href="https://solisapp.org"
               style={{
                 background: "#42c16c",
-                border: "none",
-                borderRadius: "8px",
-                padding: "0 12px",
-                cursor: "pointer",
-                display: "flex",
+                color: "#fff",
+                textDecoration: "none",
+                padding: "4px 8px",
+                borderRadius: "6px",
+                fontFamily: "Sora, sans-serif",
+                fontWeight: 600,
+                fontSize: "12px",
+                display: "inline-flex",
                 alignItems: "center",
-                justifyContent: "center",
-                width: "38px",
-                height: "38px",
-                flexShrink: 0,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                gap: "4px",
               }}
             >
-              <img src="icones/search.png" alt="Buscar" style={{ width: "18px", height: "18px" }} />
-            </button>
+              ‹ Retornar ao Feeds
+            </a>
           </div>
-        </form>
+
+          {/* Título com fundo semitransparente */}
+          <div style={{
+            display: "inline-block",
+            background: "rgba(0,0,0,0.10)",
+            borderRadius: "12px",
+            padding: "10px 8px",
+            marginBottom: "20px",
+            backdropFilter: "blur(2px)",
+            border: "1px solid rgba(255,255,255,0.2)",
+          }}>
+            <h1 style={{
+              fontFamily: "Sora, sans-serif",
+              fontSize: "clamp(20px, 5vw, 30px)",
+              fontWeight: 800,
+              color: "#fff",
+              marginBottom: "6px",
+            }}>
+              Como podemos te ajudar?
+            </h1>
+            <p style={{
+              color: "#ffffff",
+              fontSize: "14px",
+              margin: 0,
+              textShadow: "0 1px 3px rgba(0,0,0,0.5)",
+            }}>
+              Encontre abaixo as respostas para você aproveitar ao máximo o Feeds
+            </p>
+          </div>
+
+          <form onSubmit={handleBusca} style={{ maxWidth: "480px", margin: "0 auto" }}>
+            <div style={{ display: "flex", gap: "8px" }}>
+              <input
+                type="text"
+                placeholder="Digite aqui o que você procura"
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                style={{
+                  flex: 1,
+                  padding: "13px 18px",
+                  borderRadius: "8px",
+                  border: "none",
+                  fontSize: "13px",
+                  fontFamily: "Arial, sans-serif",
+                  outline: "none",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                }}
+              />
+              <button
+                type="submit"
+                style={{
+                  background: "#42c16c",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "0 12px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "38px",
+                  height: "38px",
+                  flexShrink: 0,
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                }}
+              >
+                <img src="icones/search.png" alt="Buscar" style={{ width: "18px", height: "18px" }} />
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       {/* ── CONTEÚDO PRINCIPAL ── */}
