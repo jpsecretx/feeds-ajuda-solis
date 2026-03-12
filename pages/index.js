@@ -10,8 +10,15 @@ import faqData from "../data/faq.json";
 
 const { categorias, maisPopulares } = faqData;
 
-const TOTAL_FOTOS = 8;
-const fotos = Array.from({ length: TOTAL_FOTOS }, (_, i) => `/cenario${i + 1}.webp`);
+const fotos = [
+  "/cenario1.webp",
+  "/cenario2.webp",
+  "/cenario4.webp",
+  "/cenario5.webp",
+  "/cenario6.webp",
+  "/cenario7.webp",
+  "/cenario8.webp",
+];
 
 function VideoCard({ video }) {
   const [tocando, setTocando] = useState(false);
@@ -97,7 +104,7 @@ export default function Home() {
 
   useEffect(() => {
     const intervalo = setInterval(() => {
-      setFotoAtual((atual) => (atual + 1) % TOTAL_FOTOS);
+      setFotoAtual((atual) => (atual + 1) % fotos.length);
     }, 4000);
     return () => clearInterval(intervalo);
   }, []);
@@ -129,7 +136,7 @@ export default function Home() {
   // Título — fundo verde
   const tagTitulo = {
     ...tagBase,
-    background: "rgba(66, 193, 108, 0.79)",
+    background: "rgba(66, 193, 108, 0.72)",
     fontWeight: "600",
     color: "#ffffff"
   };
@@ -163,7 +170,8 @@ export default function Home() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               opacity: i === fotoAtual ? 1 : 0,
-              transition: "opacity 0.8s ease-in-out",
+              transform: i === fotoAtual ? "scale(1)" : "scale(1.1)", 
+              transition: "opacity 0.5s ease-in-out, transform 0.5s ease-out"
             }}
           />
         ))}
@@ -189,7 +197,7 @@ export default function Home() {
               background: "#42C16C",
               color: "#fff",
               textDecoration: "none",
-              padding: "4px 8px",
+              padding: "4px 6px",
               borderRadius: "6px",
               fontFamily: "Sora, sans-serif",
               fontWeight: 600,

@@ -205,7 +205,7 @@ function PerguntaItem({ pergunta }) {
                 alignItems: "center",
                 gap: "6px",
               }}>
-                ⚠️ Importante saber
+                🤔 Importante saber
               </p>
               <ul style={{ paddingLeft: 0, listStyle: "none" }}>
                 {pergunta.importante.map((item, i) => (
@@ -226,7 +226,7 @@ function PerguntaItem({ pergunta }) {
           {pergunta.dica && (
             <div style={{
               background: "var(--amarelo-palido)",
-              border: "1px solid var(--amarelo)",
+              border: "1px solid #cecece",
               borderRadius: "8px",
               padding: "12px 16px",
               marginTop: "16px",
@@ -235,7 +235,7 @@ function PerguntaItem({ pergunta }) {
               display: "flex",
               gap: "10px",
             }}>
-              <span style={{ flexShrink: 0 }}>⚠️</span>
+              <span style={{ flexShrink: 0 }}>💡</span>
               <div><Texto>{pergunta.dica}</Texto></div>
             </div>
           )}

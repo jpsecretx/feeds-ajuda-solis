@@ -16,7 +16,10 @@
   --borda: #E0DDD5;
   --vermelho: #D62828;
   --header-bg: #1B1B1B;
+  --footer-bg: #42C16C;
+
 }
+
 
 /* ============================================================
    CORES — DARK MODE (ativado pelo botão ou pelo sistema)
@@ -24,10 +27,10 @@
 [data-theme="dark"] {
   --verde: #52B788;
   --verde-claro: #42C16C;
-  --verde-clarinho: #1a2e23;
+  --verde-clarinho: #1a4a2e;
   --verde-palido: #1e3a2a;
   --amarelo: #f4df22;
-  --amarelo-palido: #2a2510;
+  --amarelo-palido: #3a3210;
   --escuro: #F0EDE6;
   --medio: #C0BDB6;
   --suave: #7A7A7A;
@@ -35,7 +38,8 @@
   --branco: #242424;
   --borda: #333333;
   --vermelho: #FF6B6B;
-  --header-bg: #21A358;
+  --header-bg: #5e6461;
+  --footer-bg: #333333;
 }
 
 /* Segue o tema do celular automaticamente (se não tiver botão ativado) */

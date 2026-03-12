@@ -101,7 +101,7 @@ export default function Layout({ children }) {
 
       {/* ── RODAPÉ ── */}
       <footer style={{
-        background: "#42C16C",
+        background: "var(--footer-bg)",
         color: "#fff",
         textAlign: "center",
         padding: "10px",
