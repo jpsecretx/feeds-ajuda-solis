@@ -116,7 +116,7 @@ export default function BuscaPagina() {
               Tente outras palavras ou fale com o nosso suporte
             </p>
             <a
-              href="https://wa.me/5511999999999"
+              href="https://wa.me/5511966487654"
               target="_blank"
               rel="noopener noreferrer"
               style={{

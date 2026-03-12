@@ -1,16 +1,16 @@
-# 📱 Central de Ajuda — Feeds Solis
+# Central de Ajuda — Feeds
 
-Repositório da Central de Ajuda do Solis. Este é um projeto construído em Next.js (React) focado em ser rápido, responsivo e amigável para os usuários.
+Repositório da Central de Ajuda do Feeds. Este é um projeto construído em Next.js (React) focado em ser rápido, responsivo e amigável para os usuários.
 
 ---
-## 🗂️ Estrutura de arquivos
+## Estrutura de arquivos
 
 Abaixo está o mapa para você se encontrar facilmente no código:
 
 feeds-ajuda/
 │
 ├── data/
-│   └── faq.json        ← ⭐ ARQUIVO PRINCIPAL — edite aqui os textos, vídeos e categorias
+│   └── faq.json        ← ARQUIVO PRINCIPAL — edite aqui os textos, vídeos e categorias
 │
 ├── pages/
 │   ├── _app.js         ← inicialização do app (não mexa)
@@ -31,13 +31,9 @@ feeds-ajuda/
 
 ---
 
-## ✏️ Como editar ou adicionar conteúdo
+## Como editar ou adicionar conteúdo
 
 Todo o conteúdo de texto do site vive dentro do arquivo **`data/faq.json`**. Como é um arquivo JSON, lembre-se de usar **aspas duplas** em tudo e não esquecer das vírgulas separando os itens.
-
-### 🪄 Dica de formatação (Negrito)
-Em qualquer lugar do texto (respostas, passos, conclusões), você pode colocar palavras em **negrito** colocando dois asteriscos em volta delas.
-Exemplo: `"Abra o aplicativo **Solis** e clique em **Entrar**"`
 
 ### Como adicionar uma nova pergunta
 Encontre a categoria onde a pergunta se encaixa no `faq.json` e adicione um novo bloco como este dentro da lista de `"perguntas"`:
@@ -72,7 +68,7 @@ A nova categoria vai aparecer automaticamente na tela inicial e a página dela s
 
 ---
 
-## ❓Estrutura
+## Estrutura
 
 **P: O que é o `[id].js` na pasta de categoria?** R: É uma rota dinâmica do Next.js. O `[id]` vira a parte variável da URL (ex: `/categoria/conta`, `/categoria/postagem`). Um único arquivo inteligente serve para exibir todas as categorias do site.
 
